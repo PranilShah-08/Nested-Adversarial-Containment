@@ -4,7 +4,7 @@
 [![Docker](https://img.shields.io/badge/docker-dind-2496ED.svg)](https://www.docker.com/)
 [![Ollama](https://img.shields.io/badge/model-qwen2.5--coder:14b-black.svg)](https://ollama.com/)
 [![Audit Status](https://img.shields.io/badge/data%20integrity-PASS%20(10%2F10)-brightgreen.svg)](#data-integrity-audit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary%20%2F%20All%20Rights%20Reserved-red.svg)](LICENSE)
 
 An open-source empirical evaluation framework for evaluating multi-agent safety, adversarial breakout, and containment dynamics between autonomous LLMs under operational survival pressure.
 
@@ -117,7 +117,7 @@ As autonomous LLM agents are deployed into tool-using environments, traditional 
 ```
 nested-adversarial-containment/
 ├── README.md                      # Comprehensive project documentation
-├── LICENSE                        # MIT License
+├── LICENSE                        # Proprietary Research License (All Rights Reserved)
 ├── requirements.txt               # Python package dependencies
 ├── run_experiments.py             # Main entry point (calibration, audit, analysis)
 ├── GLMM_AUDIT_REPORT.md           # Statistical estimability assessment report
@@ -316,15 +316,23 @@ A statistical audit ([`GLMM_AUDIT_REPORT.md`](GLMM_AUDIT_REPORT.md)) revealed th
 
 ---
 
-## 📜 Citation & License
+## 📜 Proprietary License & Citation Policy
 
-This codebase is licensed under the [MIT License](LICENSE).
+This project, source code, experimental harness, container virtualization topologies, multi-agent architecture, and assets are protected under a **Strict Proprietary Research License** ([`LICENSE`](LICENSE)).
+
+> [!CAUTION]
+> **STRICT PERMISSION REQUIRED:** No entity, organization, educational institution, or individual may copy, reproduce, fork, execute, adapt, reverse-engineer, train on, or deploy any part of this code, architecture, or experimental framework without prior explicit written consent from the author, **Pranil Shah** ([`@PranilShah-08`](https://github.com/PranilShah-08)).
+
+### Mandatory Citation & Reference Requirement
+If and only if prior explicit written consent is obtained from the author, any permitted use, publication, academic paper, benchmark, or derivative implementation **MUST** prominently and formally cite this work:
 
 ```bibtex
-@article{nac2026calibration,
-  title   = {Nested Adversarial Containment: Empirical Calibration and Breakout Analysis of Autonomous LLM Agents},
-  author  = {Research Team},
-  journal = {IEEE Transactions on Information Forensics and Security / Workshop on AI Safety},
-  year    = {2026}
+@misc{shah2026nestedadversarialcontainment,
+  title        = {Nested Adversarial Containment: Empirical Calibration and Breakout Analysis of Autonomous LLM Agents},
+  author       = {Shah, Pranil},
+  year         = {2026},
+  howpublished = {\url{https://github.com/PranilShah-08/Nested-Adversarial-Containment}},
+  note         = {Proprietary Research — All Rights Reserved. Authorized Use Only.}
 }
 ```
+

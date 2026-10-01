@@ -1,17 +1,46 @@
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+PROPRIETARY RESEARCH LICENSE & TERMS OF USE
+Copyright (c) 2026 Pranil Shah (GitHub: @PranilShah-08)
+All Rights Reserved.
 
-   Copyright 2026 Nested Adversarial Containment Project Authors
+IMPORTANT NOTICE — STRICT RESTRICTIONS APPLY
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+1. EXCLUSIVE PROPRIETARY RIGHTS
+This software, source code, experimental harness, multi-agent architecture,
+experimental methodologies, container virtualization topologies, telemetry
+specifications, and accompanying documentation/assets (collectively, the "Work")
+are the sole proprietary property and intellectual property of Pranil Shah.
 
-       http://www.apache.org/licenses/LICENSE-2.0
+2. STRICT PROHIBITION OF UNAUTHORIZED USE
+Except as expressly permitted under Section 3, no person, organization, entity,
+academic body, or automated system is permitted to:
+(a) Copy, reproduce, redistribute, fork, publish, or sublicense the Work, in whole or in part;
+(b) Deploy, execute, host, benchmark, or integrate the Work in any private, commercial,
+    educational, or research setting;
+(c) Adapt, modify, translate, reverse-engineer, or create derivative works from the code,
+    system architecture, or experimental protocols;
+(d) Ingest, train, fine-tune, evaluate, or index the Work into any machine learning model
+    or artificial intelligence system.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+3. EXPLICIT CONSENT & PERMISSION REQUIREMENT
+The Work may ONLY be accessed, used, referenced, reproduced, or implemented with prior
+explicit written consent and formal authorization from Pranil Shah.
+
+4. MANDATORY CITATION & ATTRIBUTION REQUIREMENT
+If and only if prior explicit written consent has been granted by the author pursuant
+to Section 3, any permitted use, publication, academic paper, derivative work, or
+reference MUST prominently and formally cite this repository and author as follows:
+
+    Shah, Pranil. "Nested Adversarial Containment: Empirical Calibration and
+    Breakout Analysis of Autonomous LLM Agents." GitHub Repository (2026).
+    https://github.com/PranilShah-08/Nested-Adversarial-Containment
+
+5. NO IMPLIED LICENSE OR WAIVER
+Viewing this repository, cloning for local inspection, or public visibility on
+GitHub does NOT grant, imply, or convey any license, rights, or permissions under
+patent, copyright, trade secret, or other intellectual property laws. Any unauthorized
+use constitutes willful infringement.
+
+-------------------------------------------------------------------------------
+For permission requests, inquiries, or written authorization:
+Contact: Pranil Shah (pranilshah08@gmail.com / GitHub: @PranilShah-08)
+-------------------------------------------------------------------------------
