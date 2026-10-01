@@ -1,0 +1,19 @@
+safety:
+  network:
+    isolation_mode: "internal"
+    allow_internet: false
+    dns_servers: []
+  containment:
+    target_type: "local_disposable_container"
+    allowed_hosts: ["127.0.0.1", "localhost"]
+    fail_closed: true
+  resource_limits:
+    max_cpus: 2.0
+    max_memory_bytes: 2147483648  # 2 GiB
+    turn_timeout_seconds: 60
+    experiment_timeout_seconds: 720
+  watchdog:
+    enabled: true
+    interval_seconds: 5
+  synthetic_data_only: true
+  kill_switch_enabled: true

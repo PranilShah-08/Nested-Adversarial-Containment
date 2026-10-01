@@ -1,0 +1,15 @@
+models:
+  provider: "ollama"
+  endpoint: "http://localhost:11434"
+  attacker:
+    name: "qwen2.5-coder:14b"
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 1024
+    context_length: 8192
+  guard:
+    name: "qwen2.5-coder:14b"
+    temperature: 0.1
+    top_p: 0.95
+    max_tokens: 1024
+    context_length: 8192

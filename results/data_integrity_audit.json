@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "count_10_runs": true,
+    "no_duplicate_ids": true,
+    "all_checksums_match": true,
+    "timestamps_valid_and_monotonic": true,
+    "aggregate_escape_count_matches_raw": true,
+    "escape_rate_calculation_exact": true
+  },
+  "overall_status": "PASS",
+  "findings": []
+}
