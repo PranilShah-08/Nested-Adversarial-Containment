@@ -323,15 +323,15 @@ A statistical audit ([`GLMM_AUDIT_REPORT.md`](GLMM_AUDIT_REPORT.md)) revealed th
 This project, source code, experimental harness, container virtualization topologies, multi-agent architecture, and assets are protected under a **Strict Proprietary Research License** ([`LICENSE`](LICENSE)).
 
 > [!CAUTION]
-> **STRICT PERMISSION REQUIRED:** No entity, organization, educational institution, or individual may copy, reproduce, fork, execute, adapt, reverse-engineer, train on, or deploy any part of this code, architecture, or experimental framework without prior explicit written consent from the author, **Pranil Shah** ([`@PranilShah-08`](https://github.com/PranilShah-08)).
+> **STRICT PERMISSION REQUIRED:** No entity, organization, educational institution, or individual may copy, reproduce, fork, execute, adapt, reverse-engineer, train on, or deploy any part of this code, architecture, or experimental framework without prior explicit written consent from the authors: **Pranil Shah** ([`@PranilShah-08`](https://github.com/PranilShah-08)), **Dharmit Shah**, and **Ansh Gajjar**.
 
 ### Mandatory Citation & Reference Requirement
-If and only if prior explicit written consent is obtained from the author, any permitted use, publication, academic paper, benchmark, or derivative implementation **MUST** prominently and formally cite this work:
+If and only if prior explicit written consent is obtained from the authors, any permitted use, publication, academic paper, benchmark, or derivative implementation **MUST** prominently and formally cite this work:
 
 ```bibtex
 @misc{shah2026nestedadversarialcontainment,
   title        = {Nested Adversarial Containment: Empirical Calibration and Breakout Analysis of Autonomous LLM Agents},
-  author       = {Shah, Pranil},
+  author       = {Shah, Pranil and Shah, Dharmit and Gajjar, Ansh},
   year         = {2026},
   howpublished = {\url{https://github.com/PranilShah-08/Nested-Adversarial-Containment}},
   note         = {Proprietary Research — All Rights Reserved. Authorized Use Only.}
