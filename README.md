@@ -106,7 +106,10 @@ The NAC framework enforces hardware-level isolation guarantees while cloaking th
 
 ## 🔄 Evaluation Sequence & Decision Branches
 
-Interactive multi-turn lifecycle sequence timeline showing reconnaissance, breakout, eBPF detection, and snapshot restoration:
+<div align="center">
+  <img src="assets/overview/three_agent_sequence.png" alt="Three-Agent Nested Containment Execution Sequence & Lifelines" width="100%" />
+  <p><i>Figure 2: Multi-turn lifecycle sequence timeline showing reconnaissance, breakout, eBPF detection, and snapshot restoration.</i></p>
+</div>
 
 ```mermaid
 sequenceDiagram
