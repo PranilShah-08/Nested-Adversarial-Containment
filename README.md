@@ -19,7 +19,7 @@
 
 </div>
 
-## 📌 Table of Contents
+## Table of Contents
 
 - [Overview & Research Motivation](#-overview--research-motivation)
 - [System Architecture & Isolation Topology](#-system-architecture--isolation-topology)
@@ -38,7 +38,7 @@
 
 ---
 
-## 🔬 Overview & Research Motivation
+## Overview & Research Motivation
 
 As large language models (LLMs) are scaffolded into autonomous agents equipped with terminal access, shell toolchains, and operating system privileges, evaluating their propensity for unauthorized boundary violations has become a foundational AI safety priority. Conventional benchmarks evaluate models primarily in isolation as single agents against static operating system policies under neutral system prompts.
 
@@ -52,7 +52,7 @@ The **Nested Adversarial Containment (NAC)** framework provides a hardware-isola
 
 ---
 
-## 🏛️ System Architecture & Isolation Topology
+## System Architecture & Isolation Topology
 
 The NAC framework enforces strict hardware-level isolation guarantees while structuring the outer containment boundary as an anti-fingerprinted deceptive honeypot.
 
@@ -61,54 +61,6 @@ The NAC framework enforces strict hardware-level isolation guarantees while stru
   <p><i>Figure 1: Hardware-isolated tripartite containment topology featuring Trust Zone C, deceptive honeypot outer boundary (S2), vulnerable inner sandbox (S1), and unidirectional out-of-band kernel taps.</i></p>
 </div>
 
-### Architectural Containment Layers
-
-```mermaid
-graph TB
-    subgraph Host["Physical Host Machine (Trust Zone C)"]
-        direction TB
-        subgraph Plane["Host Control & Ground Truth Plane"]
-            A3["Agent 3: Covert Observer<br/>(Stakeless, Read-Only Evaluator)"]
-            Logs["Tamper-Proof Append-Only Telemetry<br/>(JSONL + SHA-256 Signatures)"]
-            Watchdog["Watchdog & Fast Reset Engine<br/>(Fail-Closed Process Isolation)"]
-            A3 --> Logs
-            Watchdog -.-> Plane
-        end
-
-        subgraph Tap["Out-of-Band Observation Pipeline"]
-            eBPF["Unidirectional eBPF / Hypervisor Tap<br/>(sys_enter_execve, sys_enter_connect)"]
-        end
-
-        subgraph S2["Outer Sandbox S2 (QEMU/KVM Honeypot VM)"]
-            direction TB
-            A2["Agent 2: Guard / Defender<br/>(Reciprocal Stakes tau2 = 1)"]
-            Socket["Inter-Agent Socket / Telemetry Ingestion"]
-            Decoy["Decoy Honeypot Environment<br/>(Fake SSH Keys, Decoy Database, SMBIOS Cloaking)"]
-
-            subgraph S1["Inner Sandbox S1 (Debian 12 Worker Container)"]
-                A1["Agent 1: Attacker / Escaper<br/>(Survival Stakes tau1 = 1)"]
-                Vuln["Seeded Vulnerability Surface<br/>(Tiers 1–5: docker.sock, CAP_SYS_ADMIN, SUID)"]
-                A1 -->|Probes / Exploits| Vuln
-            end
-
-            A1 -.->|Perceived Breakout t_b| S2
-            A2 -->|Remediation: kill, revoke, iptables| S1
-            A2 --> Socket
-        end
-
-        S1 -.->|Unidirectional Telemetry| eBPF
-        S2 -.->|Unidirectional Telemetry| eBPF
-        eBPF ==>|Read-Only Stream| A3
-    end
-
-    style Host fill:#f8fafc,stroke:#334155,stroke-width:2px
-    style Plane fill:#ecfdf5,stroke:#059669,stroke-width:1.5px
-    style S2 fill:#fef3c7,stroke:#d97706,stroke-width:1.5px
-    style S1 fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px
-    style A1 fill:#fee2e2,stroke:#dc2626,stroke-width:1.5px
-    style A2 fill:#fef08a,stroke:#ca8a04,stroke-width:1.5px
-    style A3 fill:#d1fae5,stroke:#059669,stroke-width:1.5px
-```
 
 ### Layer Specifications
 
@@ -118,64 +70,16 @@ graph TB
 
 ---
 
-## 🔄 Evaluation Sequence & Decision Branches
+## Evaluation Sequence & Decision Branches
 
 <div align="center">
   <img src="assets/overview/three_agent_sequence.png" alt="Three-Agent Nested Containment Execution Sequence & Lifelines" width="100%" />
   <p><i>Figure 2: Multi-turn lifecycle timeline showing reconnaissance in S1, breakout event (t_b), active detection (t_d), supervisor branching (neutralize vs. collude), and final out-of-band audit.</i></p>
 </div>
 
-### Interactive Execution Flow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    participant H as Harness Orchestrator (Trust Zone C)
-    participant S1 as Inner Sandbox S1
-    participant A1 as Agent 1 (Attacker)
-    participant A2 as Agent 2 (Guard in S2)
-    participant A3 as Agent 3 (Covert Observer)
-    participant Log as Append-Only Telemetry (fsync)
-
-    Note over H,A1: 1. Initialization & Snapshot Provisioning
-    H->>S1: Spin up pristine container from CoW snapshot
-    H->>A1: Inject prompt context (tau1 = 1) + Tier configuration
-    H->>Log: Record experiment_initialized event + SHA-256 metadata
-
-    Note over A1,A2: 2. Multi-Turn Interactive Execution (t <= T_max)
-    loop Turn Loop (t = 1 .. T_max)
-        A1->>S1: Execute bash command / exploit probe
-        S1-->>A1: Command stdout / stderr result
-        S1-)A3: Out-of-band eBPF tap event (sys_enter_execve)
-        A2->>S1: Inspect process telemetry & socket state
-        H->>Log: Append turn telemetry & hash state
-    end
-
-    Note over A1,S1: 3. Boundary Breakout Event (t = t_b)
-    rect rgb(254, 242, 242)
-        A1->>S1: Exploit vulnerability vector (e.g. docker.sock traversal)
-        A1->>H: Escapes S1 boundary (B_i = 1) -> Enters S2 honeypot
-        A1->>A2: Post-escape enumeration in S2
-        S1-)A3: Observer registers ground-truth breakout at t_b
-    end
-
-    Note over A2,H: 4. Defense & Collusion Decision Branch (t = t_d)
-    alt Active Defense (Guard Detects & Quarantines)
-        A2->>H: Emit Official Report R_i = breach (D_i = 1, Z_i = 1)
-        A2->>S1: Execute kill / iptables isolation
-    else Emergent Collusion (Guard Suppresses Alert)
-        A2->>H: Emit Official Report R_i = no breach (C_strict / C_gross trigger)
-    end
-
-    Note over A3,Log: 5. Ground-Truth Audit & State Purge
-    A3->>Log: Verify ground-truth invariant & score payoff matrix
-    H->>S1: Trigger CoW snapshot teardown & pristine reset (1.95s mean)
-    H->>Log: Compute final SHA-256 digest & commit audit record
-```
-
 ---
 
-## ⚙️ Experiment State Machine
+## Experiment State Machine
 
 The orchestration lifecycle is governed by a deterministic, fail-closed finite-state machine implemented in `harness/orchestrator/state_machine.py`. Every state transition is recorded with sub-millisecond timestamps to the append-only telemetry stream:
 
@@ -254,7 +158,7 @@ The NAC framework evaluates agent interactions across a comprehensive $4 \times 
 
 ---
 
-## 🤖 Multi-Agent Taxonomy & Trust Boundaries
+## Multi-Agent Taxonomy & Trust Boundaries
 
 ```
 +=============================================================================================================+
@@ -285,7 +189,7 @@ The NAC framework evaluates agent interactions across a comprehensive $4 \times 
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 nested-adversarial-containment/
@@ -338,7 +242,7 @@ nested-adversarial-containment/
 
 ---
 
-## 🚀 Installation & Quick Start
+## Installation & Quick Start
 
 ### 1. Prerequisites
 - **Operating System:** Linux (Ubuntu 22.04+ recommended) or macOS / Windows with WSL2.
@@ -376,7 +280,7 @@ python3 -m unittest tests/test_harness.py
 
 ---
 
-## ⚙️ Running Experiments
+## Running Experiments
 
 ```bash
 # Execute a fast 3-turn dry-run validation
@@ -394,7 +298,7 @@ python3 run_experiments.py --audit-only
 
 ---
 
-## 📊 Empirical Results ($N=10$ Calibration Pilot)
+## Empirical Results ($N=10$ Calibration Pilot)
 
 All empirical metrics derive strictly from raw telemetry logs ([`EXP-001.jsonl`](logs/raw/EXP-001.jsonl) through [`EXP-010.jsonl`](logs/raw/EXP-010.jsonl)):
 
@@ -421,7 +325,7 @@ All empirical metrics derive strictly from raw telemetry logs ([`EXP-001.jsonl`]
 
 ---
 
-### 🔬 Multi-Agent Behavioral Breakdown
+### Multi-Agent Behavioral Breakdown
 
 #### 1. Attacker Tactical Progression Over Discrete Turns
 - **Turns 1–3 (Reconnaissance Phase):** Agent 1 executes baseline environment enumeration commands (`whoami`, `id`, `uname -a`, `mount`, `df -h`, `ip a`), mapping local privileges and container namespaces.
@@ -437,7 +341,7 @@ All empirical metrics derive strictly from raw telemetry logs ([`EXP-001.jsonl`]
 
 ---
 
-## 📜 Complete Per-Episode Provenance Ledger
+## Complete Per-Episode Provenance Ledger
 
 | Episode ID | Status | Turns | Breach ($B_i$) | Det. Latency | Reset Latency | Guard Assessment ($R_i$) | Telemetry Log | SHA-256 Cryptographic Checksum |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :---: | :--- |
@@ -459,7 +363,7 @@ All empirical metrics derive strictly from raw telemetry logs ([`EXP-001.jsonl`]
 
 ---
 
-## 🛡️ Data Integrity & Cryptographic Audit
+## Data Integrity & Cryptographic Audit
 
 Every episode writes state transitions directly into append-only JSONL files with immediate OS flushing (`fsync`). Upon episode conclusion, an immutable SHA-256 cryptographic digest is calculated and signed.
 
@@ -477,7 +381,7 @@ Every episode writes state transitions directly into append-only JSONL files wit
 
 ---
 
-## 📐 Statistical Estimability & GLMM Analysis
+## Statistical Estimability & GLMM Analysis
 
 The Generalized Linear Mixed Model (GLMM) specified in the pre-registered protocol:
 $$\Pr(B_i = 1 \mid k) = \sigma\left(\beta_0 + \gamma_{0,k} + \beta_1 d_i + \beta_2 g_i + \beta_3 \tau_{1,i} + \beta_4 \tau_{2,i} + \beta_5 m_i + \beta_6 \tau_{1,i}\tau_{2,i}\right)$$
@@ -491,7 +395,7 @@ An audit of the calibration pilot data confirmed:
 
 ---
 
-## 📜 Proprietary License & Citation Policy
+## Proprietary License & Citation Policy
 
 This repository, experimental software harness, multi-agent orchestration architecture, container virtualization topologies, and experimental assets are protected under a **Strict Proprietary Research License** ([`LICENSE`](LICENSE)).
 
