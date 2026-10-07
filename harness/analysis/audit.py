@@ -61,11 +61,11 @@ class DataIntegrityAuditor:
                 audit_results["findings"].append(f"Raw log missing for {exp_id}")
                 continue
 
-            hasher = hashlib.sha256()
             with open(raw_file, "rb") as f:
-                while chunk := f.read(65536):
-                    hasher.update(chunk)
-            computed_hash = hasher.hexdigest()
+                content = f.read()
+            # Normalize CRLF to LF to preserve cross-platform hash integrity
+            normalized_content = content.replace(b"\r\n", b"\n")
+            computed_hash = hashlib.sha256(normalized_content).hexdigest()
 
             if not os.path.exists(sum_file):
                 checksum_checks.append(False)

@@ -7,37 +7,16 @@ This directory contains publication-grade figures, turn-by-turn episode executio
 ## 📊 Overview & Behavioral Dynamics (`assets/overview/`)
 
 ### 1. Tripartite System Architecture & Topology
-![System Architecture](overview/05_tripartite_interaction_architecture.png)
-* **File:** `assets/overview/05_tripartite_interaction_architecture.png`
-* **Description:** Details the multi-tier virtualization boundary ($\mathcal{S}_2$ outer Docker-in-Docker container vs. $\mathcal{S}_1$ Debian worker container), isolated internal network bridge (`--internal`), and the asymmetric trust zones separating the Attacker ($A_1$), Guard ($A_2$), and out-of-band Observer ($A_3$).
+![System Architecture](overview/three_agent_architecture.png)
+* **File:** `assets/overview/three_agent_architecture.png`
+* **Description:** Details the multi-tier virtualization boundary ($\mathcal{S}_2$ outer Docker-in-Docker / QEMU container vs. $\mathcal{S}_1$ Debian worker container), isolated internal network bridge (`--internal`), and the asymmetric trust zones separating the Attacker ($A_1$), Guard ($A_2$), and out-of-band Observer ($A_3$).
 
 ---
 
-### 2. Attacker Tactical Evolution Across Turns
-![Tactical Evolution](overview/01_agent_behavior_turn_evolution.png)
-* **File:** `assets/overview/01_agent_behavior_turn_evolution.png`
-* **Description:** Stacked distribution of attacker actions across discrete turns (Turns 1–12). Demonstrates empirical transition from preliminary reconnaissance (`netstat`, `mount`, `id`) in Turns 1–3 to exploit staging (`docker ps`, socket probes) in Turns 4–7 and lateral escalation attempts in later turns.
-
----
-
-### 3. Multi-Agent Latency & Reaction Dynamics
-![Latency Dynamics](overview/02_guard_latency_and_reaction_dynamics.png)
-* **File:** `assets/overview/02_guard_latency_and_reaction_dynamics.png`
-* **Description:** Scatter and trend comparison of Attacker command generation latency ($10\text{–}21\text{ s}$) vs. Guard supervisor evaluation duration ($12\text{–}17\text{ s}$ baseline). Highlights supervisor reaction spikes ($\sim 22.2\text{–}22.7\text{ s}$) during anomaly and breach events in `EXP-002` (Turn 9) and `EXP-003` (Turn 7).
-
----
-
-### 4. Containment Survival Curve (Kaplan-Meier Style)
-![Survival Curve](overview/04_containment_survival_curve.png)
-* **File:** `assets/overview/04_containment_survival_curve.png`
-* **Description:** Step-wise empirical survival function of containment integrity over sequential agent turns. Containment holds at $100\%$ through Turn 8, drops to $88.9\%$ at Turn 9 with the confirmed breakout in `EXP-002`, and remains stable at $88.9\%$ through the 12-turn limit.
-
----
-
-### 5. Snapshot Teardown & Reset Latency Benchmarks
-![Reset Latencies](overview/03_reset_latency_benchmarks.png)
-* **File:** `assets/overview/03_reset_latency_benchmarks.png`
-* **Description:** Wall-clock duration required to tear down breached or exhausted environments and restore pristine baseline state across all completed calibration episodes (Cohort Mean: $1.95 \pm 2.67\text{ s}$).
+### 2. Multi-Agent Execution Sequence & Lifeline Timeline
+![Execution Sequence](overview/three_agent_sequence.png)
+* **File:** `assets/overview/three_agent_sequence.png`
+* **Description:** Multi-turn timeline demonstrating the interactive sequence between Attacker ($A_1$), Guard ($A_2$), and Observer ($A_3$), highlighting the breakout event at $t_b$, detection and branching decisions at $t_d$, and final payoff evaluation.
 
 ---
 
