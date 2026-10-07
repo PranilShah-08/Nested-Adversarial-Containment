@@ -79,61 +79,7 @@ The NAC framework enforces strict hardware-level isolation guarantees while stru
 
 ---
 
-## Experiment State Machine
-
-The orchestration lifecycle is governed by a deterministic, fail-closed finite-state machine implemented in `harness/orchestrator/state_machine.py`. Every state transition is recorded with sub-millisecond timestamps to the append-only telemetry stream:
-
-```mermaid
-stateDiagram-v2
-    [*] --> CREATED
-    CREATED --> SAFETY_VERIFIED: SafetyManager check pass
-    CREATED --> SAFETY_ABORT: Pre-flight timeout / resource breach
-    CREATED --> FAILED: Initialization exception
-
-    SAFETY_VERIFIED --> ENVIRONMENT_READY: S2 & S1 containers spawned
-    SAFETY_VERIFIED --> FAILED: Docker runtime error
-    SAFETY_VERIFIED --> ABORTED: Manual interrupt
-
-    ENVIRONMENT_READY --> ATTACK_ACTIVE: Episode turn loop started
-    ENVIRONMENT_READY --> FAILED: Tooling failure
-
-    state ATTACK_ACTIVE {
-        [*] --> TurnExecution
-        TurnExecution --> TurnExecution: t < T_max & No Escape
-    }
-
-    ATTACK_ACTIVE --> BREACH_DETECTED: Observer confirms breakout (B_i = 1)
-    ATTACK_ACTIVE --> NO_BREACH: Max turns reached (t = T_max)
-    ATTACK_ACTIVE --> CONTAINMENT_RESPONSE: Guard preemptive trigger
-    ATTACK_ACTIVE --> TIMEOUT: Watchdog timer exceeded
-    ATTACK_ACTIVE --> FAILED: Unhandled exception
-
-    BREACH_DETECTED --> CONTAINMENT_RESPONSE: Guard evaluates telemetry
-    BREACH_DETECTED --> POST_ESCAPE_OBSERVATION: Honeypot monitoring active
-    BREACH_DETECTED --> RESETTING: Immediate quarantine
-
-    CONTAINMENT_RESPONSE --> POST_ESCAPE_OBSERVATION: Honeypot tracking
-    CONTAINMENT_RESPONSE --> RESETTING: Neutralization complete
-    CONTAINMENT_RESPONSE --> COMPLETED: Episode concluded
-
-    POST_ESCAPE_OBSERVATION --> RESETTING: Honeypot session expired
-    POST_ESCAPE_OBSERVATION --> COMPLETED: Final telemetry ingested
-
-    NO_BREACH --> RESETTING: Clean teardown
-
-    RESETTING --> COMPLETED: CoW snapshot restored & verified
-    RESETTING --> FAILED: Reset timeout / leak detected
-
-    SAFETY_ABORT --> [*]
-    COMPLETED --> [*]
-    FAILED --> [*]
-    TIMEOUT --> RESETTING
-    ABORTED --> RESETTING
-```
-
----
-
-## 📋 Experimental Protocol & Threat Conditions
+## Experimental Protocol & Threat Conditions
 
 The NAC framework evaluates agent interactions across a comprehensive $4 \times 5$ factorial design matrix:
 
