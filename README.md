@@ -416,7 +416,7 @@ If and only if prior explicit written authorization has been granted by the auth
 ```bibtex
 @misc{shah2026nestedadversarialcontainment,
   title        = {Nested Adversarial Containment: Empirical Calibration and Breakout Analysis of Autonomous LLM Agents},
-  author       = {Shah, Pranil and Shah, Dharmit and Gajjar, Ansh},
+  author       = {Pranil Shah, Dharmit Shah, Ansh Gajjar},
   year         = {2026},
   howpublished = {\url{https://github.com/PranilShah-08/Nested-Adversarial-Containment}},
   note         = {Proprietary Research — All Rights Reserved. Authorized Use Only.}
