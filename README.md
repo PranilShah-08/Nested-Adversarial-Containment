@@ -497,7 +497,7 @@ This repository, experimental software harness, multi-agent orchestration archit
 
 > [!CAUTION]
 > **PROPRIETARY & STRICT PERMISSION REQUIRED:**  
-> No entity, organization, educational institution, laboratory, or individual may copy, reproduce, fork, execute, adapt, distribute, reverse-engineer, train machine learning models on, or deploy any part of this codebase, architecture, or protocol without prior explicit written consent from the authors: **Pranil Shah** ([`@PranilShah-08`](https://github.com/PranilShah-08)), **Dharmit Shah**, and **Ansh Gajjar**.
+> No entity, organization, educational institution, laboratory, or individual may copy, reproduce, fork, execute, adapt, distribute, reverse-engineer, train machine learning models on, or deploy any part of this codebase, architecture, or protocol without prior explicit written consent from the authors: **Pranil Shah** ([`@PranilShah-08`](https://github.com/PranilShah-08)), **Dharmit Shah** ([`dkshah25`](https://github.com/dkshah25)), and **Ansh Gajjar** ([`anshgajjar7`](https://github.com/anshgajjar7)).
 
 ### Mandatory Citation Specification
 If and only if prior explicit written authorization has been granted by the authors, any permitted academic publication, benchmark, or derivative implementation **MUST** prominently cite this foundational work:
